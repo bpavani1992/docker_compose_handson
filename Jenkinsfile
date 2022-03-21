@@ -42,9 +42,10 @@ pipeline {
         }
         stage('deploy to server'){
             steps{
-        sshagent(['ssh_credentials_docker_compose']) {
-            sh " docker-compose up"
-        }
+                sshagent(['docker-deploy-server-credentials']){
+                    
+                    sh " docker-compose up"
+                }
             }
         }
   
