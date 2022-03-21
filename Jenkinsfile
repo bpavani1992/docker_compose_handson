@@ -9,19 +9,27 @@ pipeline {
     stages{
         
         stage('git clone'){
+            steps{
             
             git credentialsId: 'GIT-HUB-CREDENTIALS', url: 'https://github.com/bpavani1992/docker_compose_handson.git'
+            }
         }
         stage('maven package'){
+            steps{
             
             sh "mvn clean package"
+            }
 
         }
         stage('docker build image'){
+            steps{
+                
             sh "docker build -t bpavani/mavenapp:1 ."
+            }
         }
 
         stage('docker login'){ 
+            steps{
             
             withCredentials([string(credentialsId: 'Docker_hub_password', variable: 'DOCKER_HUB_PASSWORD')]){
 
@@ -29,6 +37,7 @@ pipeline {
             }
 
             sh "docker push bpavani/mavenapp:1"
+            }
         }
         
 
