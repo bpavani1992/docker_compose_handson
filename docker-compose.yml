@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  springboot:
+    image: bpavani/mavenapp:1
+    restart: always
+    ports:
+    - 9090:8080
+    networks:
+    - mavenappbridge
+networks:
+  mavenappbridge:
