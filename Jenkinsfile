@@ -43,6 +43,7 @@ pipeline {
         stage('deploy to server'){
             steps{
                 sshagent(['docker-deploy-server-credentials']){
+                    sh 'scp -o StrictHostKeyChecking=no  docker-compose.yml ubuntu@10.0.0.81:'
                     
                     sh " docker-compose up"
                 }
