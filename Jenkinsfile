@@ -38,8 +38,16 @@ pipeline {
 
             sh "docker push bpavani/mavenapp:1"
             }
+            
         }
-        
-
+        stage('deploy to server'){
+            steps{
+        sshagent(['ssh_credentials_docker_compose']) {
+            sh " docker-compose up"
+        }
+            }
+        }
+  
+              
         }
     }
