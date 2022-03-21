@@ -1,6 +1,6 @@
 version: '3.6'
 services:
-  springboot:
+  mavenwebapp:
     image: bpavani/mavenapp:1
     restart: always
     ports:
