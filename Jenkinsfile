@@ -2,29 +2,32 @@ pipeline {
     
     agent any
     
+    tools{
+        maven 'maven3.8.4'
+    
     stages{
         
-        stage(git clone){
+        stage(git clone) {
             
             git credentialsId: 'GIT-HUB-CREDENTIALS', url: 'https://github.com/bpavani1992/docker_compose_handson.git'
         }
-        stage(maven package){
+        stage(maven package) {
             
-            sh mvn clean package
+            sh "mvn clean package"
 
         }
-        stage(docker build image){
+        stage(docker build image) {
             sh "docker build -t bpavani/mavenapp:1 ."
         }
 
-        stage(docker login){ 
+        stage(docker login) { 
             
             withCredentials([string(credentialsId: 'Docker_hub_password', variable: 'DOCKER_HUB_PASSWORD')]){
 
                 sh "docker login -u bpavani -p ${DOCKER_HUB_PASSWORD}"
             }
 
-            sh docker push bpavani/mavenapp:1
+            sh "docker push bpavani/mavenapp:1"
         }
         
 
